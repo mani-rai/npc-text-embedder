@@ -39,7 +39,7 @@ class Messenger:
 
         for index, embedding in enumerate(embeddings):
             string_embedding = self.listToString(embedding)
-            json_message = {"text": sentences[index], "embedding": string_embedding}
+            json_message = {"text": sentences[index], "embedding": string_embedding, "lang": lang}
             message = json.dumps(json_message)
             if lang == "en":
                 self.channel.basic_publish(exchange='npc.exchange', routing_key='npc.routing.en.embeddings', body=message)

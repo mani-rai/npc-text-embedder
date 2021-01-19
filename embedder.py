@@ -1,6 +1,7 @@
 from indicnlp.tokenize import sentence_tokenize
 from sentence_splitter import SentenceSplitter
 from sentence_transformers import SentenceTransformer
+from langdetect import detect
 
 class Embedder:
 
@@ -14,5 +15,5 @@ class Embedder:
             sentences = self.en_sent_splitter.split(text)
         elif lang == "ne":
             sentences = sentence_tokenize.sentence_split(text, "ne")
-        filtered_sentences = [sentence for sentence in sentences if len(sentence.split()) > 3]
+        filtered_sentences = [sentence for sentence in sentences if len(sentence.split()) > 3 and detect(sentence) == lang]
         return filtered_sentences, self.model.encode(filtered_sentences)
